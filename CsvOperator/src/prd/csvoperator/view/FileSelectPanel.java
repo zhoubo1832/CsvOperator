@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import prd.csvoperator.controller.DisplayButtonController;
+import prd.csvoperator.controller.ItemListController;
 
 public class FileSelectPanel extends JPanel{
 
@@ -55,7 +56,9 @@ public class FileSelectPanel extends JPanel{
 		});
 		
 		controller = new DisplayButtonController();
+		
 		displayBtn.addActionListener(controller);
+		itemsComBox.addItemListener(new ItemListController());
 	}
 
 	public JTextField getFileTf() {

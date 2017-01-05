@@ -8,13 +8,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComboBox;
-
 import prd.csvoperator.model.FileModel;
 import prd.csvoperator.view.CsvPanel;
 import prd.csvoperator.view.FileSelectPanel;
 import prd.csvoperator.view.MainPanel;
-import prd.csvoperator.view.PagePanel;
 
 public abstract class BaseController implements ActionListener, ItemListener{
 	
@@ -23,23 +20,11 @@ public abstract class BaseController implements ActionListener, ItemListener{
 		doAction();
 	}
 	
-	@Override
 	public void itemStateChanged(ItemEvent e) {
-		if(e.getStateChange() == ItemEvent.SELECTED) {
-			return;
-		}
-		
-		JComboBox comBox = (JComboBox)e.getSource();
-		if(comBox.isFocusOwner()) {
-			Integer selectedItem = (Integer)comBox.getSelectedItem();
-		
-			if( selectedItem != null && selectedItem.intValue() != PagePanel.instance.getPageNo()) {
-				doAction();
-			}
-		}
+		doAction();
 	}
 	
-	private void doAction() {
+	protected void doAction() {
 		String path = FileSelectPanel.instance.getFileTf().getText();
 		File f = new File(path);
 		if(f != null && f.exists()) {

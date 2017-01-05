@@ -17,8 +17,7 @@ public class FileModel {
 		BufferedReader reader = null;
 		try{
 			reader = new BufferedReader(new InputStreamReader(new FileInputStream(path),"UTF-8"));
-			String lineStr = null;
-			while((lineStr = reader.readLine()) != null) {
+			while((reader.readLine()) != null) {
 				count++;
 			}
 		} catch(Exception e) {
