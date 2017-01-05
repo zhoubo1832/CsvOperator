@@ -3,9 +3,11 @@ package prd.csvoperator.controller;
 import prd.csvoperator.view.FileSelectPanel;
 import prd.csvoperator.view.PagePanel;
 
-public class DisplayButtonController extends BaseController{
+public class PrevButtonController extends BaseController{
 
+	@Override
 	protected int getPageNo() {
-		return 1;
+		return PagePanel.instance.getPageNo() - 1 ;
 	}
+
 }

@@ -1,7 +1,6 @@
 package prd.csvoperator.view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,37 +16,36 @@ public class CsvPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
+	private JScrollPane scrollPane;
+	
 	private JTable csvTable;
 	
+	private PagePanel pagePanel = new PagePanel();
+	
 	public CsvPanel() {
-		// create file table using customized FileListTableModel
 		CsvTableModel model = new CsvTableModel(new ArrayList<ArrayList<String>>());
 		csvTable = new JTable(model);
 		
-		
-		JScrollPane scrollPane = new JScrollPane(csvTable);
-	    scrollPane.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
+		scrollPane = new JScrollPane(csvTable);
 		scrollPane.setBorder(null);
-		this.add(scrollPane,BorderLayout.CENTER);
-		
+	
 		setLayout(new BorderLayout());
-		// add table body
-		add(scrollPane,BorderLayout.CENTER);	
-				
+		this.add(scrollPane,BorderLayout.CENTER);
+		this.add(pagePanel,BorderLayout.SOUTH);
 	}
 	
-	public void showData(List<ArrayList<String>> vecData) {
-//		MainPanel.instance.getScrollPane().setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
-		// create file table using customized FileListTableModel
+	public void showData(List<ArrayList<String>> vecData, int pageNo, int totalCount, int items) {
 		CsvTableModel model = new CsvTableModel(vecData);		
 		csvTable.setModel(model);
 		csvTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
 		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
 		csvTable.setRowSorter(sorter);
 		
-		// set cell renderer for first column
 		csvTable.getColumnModel().getColumn(0).setCellRenderer(new CsvTableRender());
 		
+		pagePanel.setPage(pageNo, totalCount, items);
+
+		this.add(pagePanel,BorderLayout.SOUTH);
 		this.revalidate();
 		this.repaint();
 	}

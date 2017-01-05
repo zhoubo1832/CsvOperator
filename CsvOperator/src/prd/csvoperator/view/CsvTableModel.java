@@ -3,7 +3,6 @@ package prd.csvoperator.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -59,7 +58,7 @@ public class CsvTableModel extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if(columnIndex == 0) {
-			return new MyButton("" + (rowIndex + 1));
+			return (rowIndex + 1);
 		} else {
 			try{
 				return vecData.get(rowIndex).get(columnIndex-1);
@@ -72,7 +71,7 @@ public class CsvTableModel extends AbstractTableModel{
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		if(columnIndex == 0) {
-			return JButton.class;
+			return Integer.class;
 		}
 		return Object.class;
 	}
@@ -80,20 +79,5 @@ public class CsvTableModel extends AbstractTableModel{
 	public void clear() {
 		vecData.clear();
 		this.fireTableDataChanged();
-	}
-	
-	private class MyButton extends JButton{
-
-		private static final long serialVersionUID = 1L;
-
-		public MyButton(String s) {
-			super(s);
-			setOpaque(true);
-		}
-		
-		@Override
-		public String toString() {
-			return this.getText();
-		}
 	}
 }
